@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tobi's Job Command Center</title>
+<style>
+:root{--bg:#f6f3ec;--card:#fffdf8;--ink:#23211c;--mut:#6b665b;--line:#e7e1d2;--brand:#2a4fd0;--good:#12805c;--mid:#b7791f;--low:#b4432f;--chip:#f0ebde}
+:root[data-theme=dark]{--bg:#0e1320;--card:#161d2e;--ink:#e8edf8;--mut:#93a0ba;--line:#26304a;--brand:#6f94ff;--good:#3fcf9b;--mid:#f0b95a;--low:#ff8a73;--chip:#1d2740}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+header{padding:22px 24px 8px;max-width:1200px;margin:auto}h1{margin:0;font-size:24px}header p{margin:4px 0 0;color:var(--mut)}
+main{max-width:1200px;margin:auto;padding:8px 24px 60px}
+.banner{background:#fff4d6;color:#6b4b00;border:1px solid #f0d58a;border-radius:10px;padding:10px 14px;margin:12px 0;font-size:14px}
+:root[data-theme=dark] .banner{background:#3a2f12;color:#f3d894;border-color:#6b5520}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}.tab{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer;font-size:14px}
+.tab.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0 16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}.kpi b{display:block;font-size:24px}.kpi span{color:var(--mut);font-size:13px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+input,select,textarea,button{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+input[type=search]{min-width:220px;flex:1}button{cursor:pointer}button.pri{background:var(--brand);color:#fff;border-color:var(--brand)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.top h3{margin:0;font-size:16px;line-height:1.3}
+.co{color:var(--mut);font-size:13px}
+.score{min-width:58px;text-align:center;border-radius:10px;padding:6px 4px;font-weight:700;font-size:20px;line-height:1}.score small{display:block;font-size:10px;font-weight:600;opacity:.85;margin-top:3px}
+.s-hi{background:#dff5ec;color:#0c6a4b}.s-md{background:#fdf0d5;color:#8a5a0b}.s-lo{background:#fbe3dd;color:#963520}
+:root[data-theme=dark] .s-hi{background:#12382d;color:#7de6bd}:root[data-theme=dark] .s-md{background:#3a2f12;color:#f3c778}:root[data-theme=dark] .s-lo{background:#40201a;color:#ffab98}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{background:var(--chip);border-radius:999px;padding:2px 9px;font-size:12px;color:var(--mut)}
+.meter{height:6px;border-radius:6px;background:var(--line);overflow:hidden}.meter i{display:block;height:100%;background:var(--brand)}
+.why{font-size:13.5px}.why b{color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;align-items:center}
+a.btn{display:inline-block;text-decoration:none;border:1px solid var(--line);padding:6px 10px;border-radius:8px;color:var(--brand);font-size:13px;background:var(--card)}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);width:min(780px,94vw);max-height:90vh;padding:0}dialog::backdrop{background:#0008}
+.dh{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;position:sticky;top:0;background:var(--card)}
+.db{padding:16px 20px;display:grid;gap:14px}.db h4{margin:0 0 4px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut)}
+ul{margin:4px 0;padding-left:20px}li{margin:2px 0}
+.fac{display:grid;grid-template-columns:150px 1fr 24px;gap:8px;align-items:center;font-size:13px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--mut);font-weight:600}
+.pipe{display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:10px;overflow-x:auto}.col{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;min-height:120px}.col h5{margin:0 0 8px;font-size:12px;text-transform:uppercase;color:var(--mut)}
+.mini{border:1px solid var(--line);border-radius:8px;padding:6px 8px;margin-bottom:6px;font-size:13px;cursor:pointer;background:var(--bg)}
+.hide{display:none}.note{color:var(--mut);font-size:13px}
+.slider{display:grid;grid-template-columns:140px 1fr 40px;gap:10px;align-items:center;margin:6px 0}
+@media print{.tabs,.bar,header p,.banner,button{display:none!important}}
+
+.theme{margin-left:auto;display:flex;gap:4px}.theme button{padding:5px 10px;border-radius:999px;font-size:13px}.theme button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.hrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.live{color:var(--good)}.dead{color:var(--low)}.unk{color:var(--mut)}.card.closed{opacity:.55}
+@media(max-width:700px){
+ header{padding:14px 14px 4px}h1{font-size:20px}main{padding:6px 14px 50px}
+ .tabs{flex-wrap:nowrap;overflow-x:auto;margin:10px -14px;padding:0 14px 6px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab{white-space:nowrap;flex:0 0 auto}
+ .kpis{grid-template-columns:repeat(2,1fr)}.kpi b{font-size:20px}
+ .bar>*{flex:1 1 100%}.grid{grid-template-columns:1fr}
+ button,select,input,a.btn{min-height:42px}.card{padding:14px}
+ dialog{width:100vw;max-width:100vw;height:100vh;max-height:100vh;border-radius:0;margin:0}
+ .fac{grid-template-columns:110px 1fr 18px}.slider{grid-template-columns:1fr 1fr 34px}
+ .pipe{grid-template-columns:repeat(6,78vw);scroll-snap-type:x mandatory}.col{scroll-snap-align:start}
+ table{font-size:13px}th,td{padding:6px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow"><h1>🎯 Tobi's Job Command Center</h1><div class="theme" id="theme"><button data-t="light">☀ Off-white</button><button data-t="dark">☾ Dark</button><button data-t="auto">Auto</button></div></div>
+  <p>Wi-Fi / RF system validation &amp; customer-escalation roles — ranked by honest fit, with the work needed to land each one.</p>
+</header>
+<main>
+<div class="banner" id="stale"></div>
+<div class="tabs" id="tabs"></div>
+
+<section id="v-roles">
+  <div class="kpis" id="kpis"></div>
+  <div class="bar">
+    <input type="search" id="q" placeholder="Search title, company, skill…">
+    <select id="fTier"><option value="">All fit bands</option><option>Strong</option><option>Solid</option><option>Stretch</option></select>
+    <select id="fLoc"><option value="">Any location</option><option value="bay">Bay Area</option><option value="reloc">Relocation / international</option></select>
+    <select id="fStat"><option value="">Any status</option></select>
+    <select id="sort"><option value="score">Sort: fit score</option><option value="company">Sort: company</option><option value="conf">Sort: link confidence</option><option value="close">Sort: closing soonest</option></select>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="v-pipe" class="hide"><p class="note">Click a card to open it. Status is saved in this browser (use Export in Tools to back up / move devices).</p><div class="pipe" id="pipe"></div></section>
+
+<section id="v-gaps" class="hide"><div id="gaps"></div></section>
+
+<section id="v-resume" class="hide"><div id="resumes"></div></section>
+
+<section id="v-plan" class="hide"><div id="plan"></div></section>
+
+<section id="v-tools" class="hide"><div id="tools"></div></section>
+</main>
+
+<dialog id="dlg"><div class="dh"><div><b id="dT"></b><div class="co" id="dC"></div></div><button onclick="dlg.close()">Close ✕</button></div><div class="db" id="dB"></div></dialog>
+
+<script>
+/* ============ DATA — edit here or let Claude's weekly run update it ============ */
+const AS_OF="2026-08-08";
+const ROLES=[
+{id:"apple-wifi-conn",co:"Apple",title:"WiFi Connectivity Validation Engineer",loc:"San Diego, CA (location unverified)",bay:false,tier:"Strong",
+ url:"https://jobs.apple.com/en-us/details/200624968-1697/wifi-connectivity-validation-engineer",
+ f:{domain:5,level:4,loc:2,gaps:3,conf:2},
+ why:["Core of the job (Wi-Fi connectivity validation methodology, working with design + system-integration engineers) is what you do daily at NETGEAR.","802.11ax/6E validation, packet/log analysis and chip-vendor debug transfer directly.","M.S. EE meets the typical bar; posted pay band reportedly $171.6K–$302.2K."],
+ risks:["Apple builds its own silicon — your Qualcomm/Broadcom experience is a methodology story, not a platform match.","Apple validation roles often expect deeper lab/instrumentation and test-development ownership than escalation work shows.","I could not open the live posting (JS-only site) — confirm location and that it's still open."],
+ gapTags:["Wi-Fi PHY/MAC test development","RF lab instrumentation","Apple-scale test automation"],
+ act:["Reframe top 3 bullets around designing/executing validation plans, not only escalations.","Quantify: # SKUs validated, defects found pre-launch (Orbi 3/7 Android disconnect, backhaul crash).","Look for a referral — Apple response rates to cold applies are low."],
+ resume:"Tobi_Ajao_Resume_WiFi_Validation.docx"},
+{id:"apple-wifi-sys",co:"Apple",title:"WiFi Wireless Systems Validation Engineer",loc:"San Diego, CA (location unverified)",bay:false,tier:"Strong",
+ url:"https://jobs.apple.com/en-us/details/200589472/wifi-wireless-systems-validation-engineer",
+ f:{domain:5,level:4,loc:2,gaps:3,conf:2},
+ why:["Lab + field system performance validation for customer experience mirrors your escalation→validation loop.","Reported pay band $143.1K–$264.2K."],
+ risks:["Same silicon-platform gap as the other Apple role.","Job ID is older (200589…) — higher chance it's stale or filled."],
+ gapTags:["Wi-Fi PHY/MAC test development","RF lab instrumentation"],
+ act:["Apply to one Apple Wi-Fi role first and one at a time; duplicate applications read as unfocused.","Verify the posting is live before investing time."],
+ resume:"Tobi_Ajao_Resume_WiFi_Validation.docx"},
+{id:"eero-rf",co:"Amazon (eero)",title:"RF Validation Test Engineer, eero",loc:"Taipei, Taiwan (onsite, travel)",bay:false,tier:"Stretch",
+ url:"https://www.amazon.jobs/en/jobs/3195714/rf-validation-test-engineer-eero",
+ f:{domain:4,level:4,loc:1,gaps:3,conf:5},
+ why:["Verified live when checked: Wi-Fi 2.4/5/6 GHz + Wi-Fi 8 validation, coexistence, failure triage/RCA, DOEs — strong overlap with your RF/Wi-Fi validation work."],
+ risks:["Onsite in Taipei with international travel — only viable if you'd relocate abroad.","Hands-on RF instrumentation (VNA, IQxel-MW, antenna tuning, S-parameters) isn't evidenced on your resume."],
+ gapTags:["RF lab instrumentation (VNA, IQxel)","Antenna tuning / S-parameters","Power & signal integrity"],
+ act:["Only pursue if relocation abroad is genuinely on the table.","Watch for a US/Bay Area eero Wi-Fi validation opening (the SF one has closed)."],
+ resume:"Tobi_Ajao_Resume_WiFi_Validation.docx"},
+{id:"marvell-sqa",co:"Marvell",title:"SQA Engineer – Test / Validation – WiFi",loc:"Santa Clara, CA",bay:true,tier:"Solid",
+ url:"https://marvell.referrals.selectminds.com/careers/jobs/sqa-engineer-test-validation-wifi-2339",
+ f:{domain:4,level:3,loc:5,gaps:3,conf:2},
+ why:["Chipset-vendor Wi-Fi test/validation — a peer of Qualcomm/Broadcom, which you already work with.","Python scripting and AP security-mechanism testing align with your automation + security certs.","Bay Area, no relocation."],
+ risks:["SQA title may sit below your current seniority — confirm level and comp.","Marvell's Wi-Fi/connectivity business has been reshaped in recent years; verify the team is actively hiring.","Page didn't load for me — confirm still open."],
+ gapTags:["TCL/Expect scripting","Test automation frameworks"],
+ act:["Ask the recruiter about level (Senior/Staff) before applying.","Highlight Python automation + chip-vendor debug."],
+ resume:"Tobi_Ajao_Resume_WiFi_Validation.docx"},
+{id:"mtk-sae",co:"MediaTek",title:"System Application Engineer – Customer System Engineering",loc:"San Jose, CA",bay:true,tier:"Solid",
+ url:"https://careers.mediatek.com/en/jobs/MUS120260408000",
+ f:{domain:3,level:4,loc:5,gaps:2,conf:5},
+ why:["Verified live: customer-facing bring-up, validation, debug across HW/FW/SW, telemetry/logs, repro + root cause — your escalation method fits.","Optional Python/tool-integration work matches your Claude triage tooling.","Requires 3+ yrs — you clear it comfortably; San Jose."],
+ risks:["Not Wi-Fi: it's chip-design org work with SerDes/high-speed interconnect tuning and signal integrity — a real gap, not on your resume.","Site tags it 'less than 2 years' while text says 3+ — level may be junior to you; confirm."],
+ gapTags:["SerDes / high-speed interfaces","Signal integrity (BER, eye, link training)","Scope/logic-analyzer bench debug"],
+ act:["Use the MediaTek-tailored resume; address the SerDes gap head-on in the cover note.","Spend a few evenings on SerDes/PCIe basics + eye-diagram fundamentals before interviews.","Ask about level/comp early — this may under-title you."],
+ resume:"Tobi_Ajao_Resume_MediaTek_SystemAppEngineer.docx"},
+{id:"google-pixel",co:"Google",title:"System Validation Engineer, Pixel",loc:"Mountain View, CA",bay:true,tier:"Solid",
+ url:"https://www.google.com/about/careers/applications/jobs/results/80212883262055110-system-validation-engineer-pixel",
+ f:{domain:3,level:3,loc:5,gaps:3,conf:4},
+ why:["Read the live posting: system validation, triage, RF-subsystem coexistence, test methodology across NTI/NPI — right discipline.","Preferred: master's in EE (you have it); Python + hardware-debug tooling (you have Python).","Pay band $159K–$231K + bonus + equity; Mid level (4+ yrs required)."],
+ risks:["Emphasis is bench electrical validation and coexistence (power, SoC, sensors, audio, display) — broader and more hardware-electrical than your router/mesh work.","Mid-level leveling may be a step below your Senior II title."],
+ gapTags:["Bench electrical validation / DOE","Coexistence testing","Statistical analysis of regressions"],
+ act:["Lead with RF/Wi-Fi coexistence and root-cause stories; show a DOE or stats example if you have one.","Request referral from a Pixel/Nest contact; Google is referral-sensitive."],
+ resume:"Tobi_Ajao_Resume_WiFi_Validation.docx"},
+{id:"cisco-esc",co:"Cisco",title:"Optical Customer Escalation Engineer",loc:"San Jose, CA",bay:true,tier:"Stretch",
+ url:"https://careers.cisco.com/global/en/job/CISCISGLOBAL2006692EXTERNALENGLOBAL/Optical-Customer-Escalation-Engineer",
+ f:{domain:2,level:4,loc:5,gaps:2,conf:3},
+ why:["Escalation-engineering discipline is exactly your strength; CCNA helps credibility; San Jose."],
+ risks:["Optical networking domain — little of your RF/Wi-Fi depth applies.","Escalation roles screen hard for deep domain knowledge of the product line."],
+ gapTags:["Optical transport knowledge","Carrier/enterprise TAC tooling"],
+ act:["Consider Cisco Meraki/wireless escalation roles instead — closer to your domain; search for them directly."],
+ resume:"Tobi_Ajao_Resume_MediaTek_SystemAppEngineer.docx"},
+{id:"meta-wifi",co:"Meta",title:"Wireless Systems Engineer (Wi-Fi)",loc:"Menlo Park, CA (unverified)",bay:true,tier:"Solid",
+ url:"https://www.metacareers.com/v2/jobs/1452037635648921/",
+ f:{domain:4,level:3,loc:4,gaps:3,conf:2},
+ why:["Wi-Fi systems role in your core domain; Reality Labs hardware teams value validation + field-debug skills.","Bay Area."],
+ risks:["Meta pages are login-gated, so I couldn't read requirements — it may be a design/architecture role needing deeper PHY/MAC expertise.","Highly competitive; referrals matter."],
+ gapTags:["Wi-Fi PHY/MAC depth","Systems architecture ownership"],
+ act:["Open the posting while logged in and compare line-by-line to the resume.","Seek a referral."],
+ resume:"Tobi_Ajao_Resume_WiFi_Validation.docx"},
+{id:"broadcom-fae",co:"Broadcom",title:"Field Applications Engineer",loc:"Not specified — verify",bay:false,tier:"Stretch",
+ url:"https://broadcom.wd1.myworkdayjobs.com/en-US/External_Career/job/Field-Applications-Engineer_R024613",
+ f:{domain:3,level:3,loc:3,gaps:3,conf:1},
+ why:["You already work with Broadcom engineers on Wi-Fi chip issues — an FAE seat is the vendor side of that relationship."],
+ risks:["I could not read the posting (Workday shell) — unknown product line (could be switching/storage, not Wi-Fi), location, and level.","Requisition number is low; may be old."],
+ gapTags:["Customer design-in / pre-sales","Product-line specifics"],
+ act:["Open the link in a browser first; apply only if the product line is wireless/connectivity.","Search Broadcom's wireless/Wi-Fi FAE reqs directly."],
+ resume:"Tobi_Ajao_Resume_WiFi_Validation.docx"},
+{id:"nvidia-sysval",co:"NVIDIA",title:"System Validation Engineer",loc:"Santa Clara, CA (unverified)",bay:true,tier:"Stretch",
+ url:"https://jobs.nvidia.com/careers/job/893392931372",
+ f:{domain:2,level:3,loc:5,gaps:2,conf:2},
+ why:["System validation + debug title; Bay Area; M.S. EE; Python and Linux."],
+ risks:["NVIDIA validation is typically GPU/board/server (PCIe, power, high-speed I/O, scopes/BERT) — a long way from Wi-Fi.","Couldn't read requirements."],
+ gapTags:["High-speed I/O / PCIe","Oscilloscope / BERT lab skills","Server/GPU platform knowledge"],
+ act:["Only pursue if you want to pivot into data-center/hardware validation; otherwise deprioritize."],
+ resume:"Tobi_Ajao_Resume_MediaTek_SystemAppEngineer.docx"},
+{id:"qcom-rf",co:"Qualcomm",title:"RF Design Validation & Test Engineer – Wireless Connectivity & System Integration",loc:"San Diego, CA — relocation",bay:false,tier:"Stretch",
+ url:"https://careers.qualcomm.com/careers/job/446704863255-senior-rf-design-validation-and-test-engineer-%E2%80%93-wireless-connectivity-system-integration-san-diego-california-united-states-of-america?domain=qualcomm.com",
+ f:{domain:4,level:2,loc:1,gaps:2,conf:2},
+ why:["Wi-Fi/connectivity RF validation at a chipset vendor you know well.","Search result listed a Staff-level variant — upside if you can reach it."],
+ risks:["Relocation to San Diego.","Chip-level RF design validation (not system/escalation) — likely requires hands-on silicon/RF lab depth and may be Staff-level.","Title/level inconsistent between URL and listing — verify."],
+ gapTags:["RF design validation on silicon","RF lab instrumentation","Staff-level scope"],
+ act:["Treat as a long shot unless relocation is on the table.","Qualcomm customer-engineering/field roles may fit better than silicon validation."],
+ resume:"Tobi_Ajao_Resume_WiFi_Validation.docx"},
+{id:"tesla-wireless",co:"Tesla",title:"Wireless Hardware Validation Engineer",loc:"Palo Alto, CA (unverified)",bay:true,tier:"Stretch",
+ url:"https://www.tesla.com/careers/search/job/wireless-hardwarevalidationengineer-108773",
+ f:{domain:3,level:3,loc:4,gaps:2,conf:1},
+ why:["Wireless hardware validation, Bay Area; test-equipment, DOE and failure-triage skills transfer."],
+ risks:["Low requisition number (108773) — probably an old listing; Tesla often leaves them up.","Automotive connectivity and heavy hardware focus; Tesla's process is fast but selective."],
+ gapTags:["Automotive wireless (BLE/UWB/cellular)","Hands-on RF hardware validation"],
+ act:["Confirm it's live; if so, a short targeted application is cheap."],
+ resume:"Tobi_Ajao_Resume_WiFi_Validation.docx"}
+];
+const PUBLISHED_CLOSE={}; /* e.g. {"mtk-sae":"2026-11-15"} only when the posting itself states a close date */
+const STATUSES=["Saved","Applied","Screening","Interview","Offer","Closed"];
+const WEIGHTS0={domain:35,level:20,loc:20,gaps:15,conf:10};
+const FACLAB={domain:"Domain match",level:"Level / experience fit",loc:"Location fit",gaps:"Gap risk (5 = few gaps)",conf:"Posting verified live"};
+const PLAN=[["Mon","Check this dashboard for new roles; verify 3 links before applying; send 1–2 referral requests."],["Tue","Tailor the resume for one role (use the variant, change ≤5 bullets), write a 5-line cover note."],["Wed","Apply to 1–2 top-fit roles; log them in Pipeline; set follow-up dates."],["Thu","30 min skill-gap practice (see Gaps tab); 1 networking message to an engineer/recruiter."],["Fri","Follow up on applications >7 days old; update statuses; export a backup."],["Sat","Weekly Claude run drops new matches in your Gmail drafts + Drive — add them here."]];
+const CHECK=["Confirm posting is live and location/level match","Read the full JD; list every requirement vs. your proof","Pick resume variant; edit ≤5 bullets to mirror the JD's words (only true claims)","Write a short cover note that addresses the main gap directly","Find a referral / hiring-manager contact","Submit; save confirmation + job text (postings disappear)","Set a follow-up date (7–10 days)","Prepare 3 STAR stories: field escalation, hardware defect found, AI triage tool"];
+
+
+/* theme */
+function applyTheme(t){localStorage.setItem("tobi-theme",t);const d=t==="auto"?matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light":t;document.documentElement.dataset.theme=d;document.querySelectorAll("#theme button").forEach(b=>b.classList.toggle("on",b.dataset.t===t))}
+document.querySelectorAll("#theme button").forEach(b=>b.onclick=()=>applyTheme(b.dataset.t));
+applyTheme(localStorage.getItem("tobi-theme")||"auto");
+matchMedia("(prefers-color-scheme:dark)").addEventListener("change",()=>{if((localStorage.getItem("tobi-theme")||"auto")==="auto")applyTheme("auto")});
+/* ============ state ============ */
+const KEY="tobi-jobs-v1";
+let S=JSON.parse(localStorage.getItem(KEY)||"{}");S.roles=S.roles||{};S.w=S.w||{...WEIGHTS0};
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+const st=id=>S.roles[id]=S.roles[id]||{status:"Saved",notes:"",follow:"",check:[],close:""};
+const closeOf=r=>st(r.id).close||PUBLISHED_CLOSE[r.id]||"";
+const days=d=>Math.ceil((new Date(d+"T23:59:59")-new Date())/864e5);
+function closeTxt(r){const d=closeOf(r);if(!d)return `<span class="chip" title="None of these career sites publish a close date. Most stay open until filled.">⏳ Close date not published</span>`;const n=days(d);const c=n<0?"s-lo":n<=7?"s-lo":n<=14?"s-md":"s-hi";return `<span class="chip ${c}" style="font-weight:600">${n<0?"Closed "+d:"Closes "+d+" ("+n+"d)"}</span>`}
+const $=id=>document.getElementById(id);
+function score(r){const w=S.w,t=Object.values(w).reduce((a,b)=>a+b,0)||1;let s=0;for(const k in w)s+=(r.f[k]/5)*w[k];return Math.round(s/t*100)}
+const band=s=>s>=70?["s-hi","Higher odds"]:s>=55?["s-md","Moderate"]:["s-lo","Longer shot"];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ============ views ============ */
+const TABS=[["roles","Matches"],["pipe","Pipeline"],["gaps","Skill gaps"],["resume","Resumes"],["plan","Weekly plan"],["tools","Tools"]];
+$("tabs").innerHTML=TABS.map(([k,l])=>`<button class="tab" data-k="${k}">${l}</button>`).join("");
+function show(k){TABS.forEach(([x])=>$("v-"+x).classList.toggle("hide",x!==k));document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.k===k));if(k==="pipe")pipe();if(k==="gaps")gaps();if(k==="tools")tools();location.hash=k}
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>show(b.dataset.k));
+STATUSES.forEach(s=>$("fStat").insertAdjacentHTML("beforeend",`<option>${s}</option>`));
+["q","fTier","fLoc","fStat","sort"].forEach(i=>$(i).oninput=render);
+
+
+/* daily status feed (status.json, written by the GitHub Action / Claude daily check) */
+let FEED={checkedAt:null,roles:{},added:[],log:[]};
+const stat=r=>FEED.roles[r.id]||{state:"unknown"};
+function liveTxt(r){const x=stat(r);const when=x.checked?` · ${x.checked.slice(0,10)}`:"";return x.state==="live"?`<span class="chip live">✅ Live${when}</span>`:x.state==="closed"?`<span class="chip dead">❌ Appears closed${when}</span>`:`<span class="chip unk">❔ Not auto-verifiable${when}</span>`}
+async function loadFeed(){try{const r=await fetch("status.json?"+Date.now());if(!r.ok)throw 0;FEED=await r.json();FEED.added.forEach(a=>{if(!ROLES.find(x=>x.id===a.id))ROLES.push(a)});
+ const n=Object.values(FEED.roles).filter(x=>x.state==="closed").length;
+ $("stale").innerHTML=`🔄 Auto-checked <b>${(FEED.checkedAt||"").slice(0,16).replace("T"," ")} UTC</b> — ${Object.values(FEED.roles).filter(x=>x.state==="live").length} confirmed live, ${n} appear closed, rest can't be auto-verified (JS-only sites).`+(FEED.log&&FEED.log.length?`<br><small>${FEED.log.slice(0,4).map(esc).join("<br>")}</small>`:"")}catch(e){}render()}
+const age=Math.floor((new Date()-new Date(AS_OF))/864e5);
+$("stale").innerHTML=age>7?`⚠️ <b>Job data is ${age} days old</b> (checked ${AS_OF}). Postings close quickly — click <b>Verify ↗</b> before applying. Links marked low "verified" confidence couldn't be opened by me (JS-only career sites).`:`Job data checked ${AS_OF}.`;
+
+function card(r){const s=score(r),[c,l]=band(s),x=st(r.id);return `<div class="card ${stat(r).state==="closed"?"closed":""}">
+<div class="top"><div><h3>${esc(r.title)}</h3><div class="co">${esc(r.co)} · ${esc(r.loc)}</div></div><div class="score ${c}">${s}<small>${l}</small></div></div>
+<div class="meter"><i style="width:${s}%"></i></div>
+<div class="chips"><span class="chip">${r.tier} fit</span><span class="chip">${r.bay?"Bay Area":"Relocation / intl"}</span>${liveTxt(r)}<span class="chip">${x.status}</span>${closeTxt(r)}</div>
+<div class="why"><b>Why:</b> ${esc(r.why[0])}</div><div class="why"><b>Watch:</b> ${esc(r.risks[0])}</div>
+<div class="row"><button class="pri" onclick="openR('${r.id}')">Details &amp; plan</button><a class="btn" target="_blank" rel="noopener" href="${r.url}">Verify ↗</a></div></div>`}
+function filtered(){const q=$("q").value.toLowerCase(),t=$("fTier").value,l=$("fLoc").value,s=$("fStat").value;let a=ROLES.filter(r=>(!q||JSON.stringify(r).toLowerCase().includes(q))&&(!t||r.tier===t)&&(!l||(l==="bay")===r.bay)&&(!s||st(r.id).status===s));const so=$("sort").value;a.sort((x,y)=>so==="company"?x.co.localeCompare(y.co):so==="conf"?y.f.conf-x.f.conf:so==="close"?(closeOf(x)||"9999").localeCompare(closeOf(y)||"9999"):score(y)-score(x));return a}
+function render(){const a=filtered();$("grid").innerHTML=a.map(card).join("")||'<p class="note">No matches for these filters.</p>';
+ const all=ROLES.map(score),applied=ROLES.filter(r=>["Applied","Screening","Interview","Offer"].includes(st(r.id).status)).length;
+ $("kpis").innerHTML=[[ROLES.length,"roles tracked"],[ROLES.filter(r=>score(r)>=70).length,"higher-odds (≥70)"],[ROLES.filter(r=>r.bay).length,"Bay Area"],[applied,"in play"],[ROLES.filter(r=>closeOf(r)&&days(closeOf(r))>=0&&days(closeOf(r))<=7).length,"closing ≤7 days"],[Math.max(...all),"top fit score"]].map(([n,l])=>`<div class="kpi"><b>${n}</b><span>${l}</span></div>`).join("")}
+
+function openR(id){const r=ROLES.find(x=>x.id===id),x=st(id),s=score(r),[c,l]=band(s);
+$("dT").textContent=r.title;$("dC").textContent=`${r.co} · ${r.loc}`;
+$("dB").innerHTML=`<div><div class="score ${c}" style="display:inline-block;padding:6px 14px">${s} · ${l}</div> <span class="note">Fit score = weighted match of the five factors below (my estimate, not a probability of an offer). Adjust weights in Tools.</span></div>
+<div><h4>Score breakdown</h4>${Object.keys(FACLAB).map(k=>`<div class="fac"><span>${FACLAB[k]}</span><div class="meter"><i style="width:${r.f[k]*20}%"></i></div><b>${r.f[k]}</b></div>`).join("")}</div>
+<div><h4>Why you could land it</h4><ul>${r.why.map(w=>`<li>${esc(w)}</li>`).join("")}</ul></div>
+<div><h4>What could sink it</h4><ul>${r.risks.map(w=>`<li>${esc(w)}</li>`).join("")}</ul></div>
+<div><h4>Gaps to address</h4><div class="chips">${r.gapTags.map(g=>`<span class="chip">${esc(g)}</span>`).join("")}</div></div>
+<div><h4>How to raise your odds</h4><ul>${r.act.map(w=>`<li>${esc(w)}</li>`).join("")}</ul></div>
+<div><h4>Application checklist</h4>${CHECK.map((t,i)=>`<label style="display:block"><input type="checkbox" ${x.check.includes(i)?"checked":""} onchange="chk('${id}',${i},this.checked)"> ${esc(t)}</label>`).join("")}</div>
+<div class="row"><select onchange="setS('${id}',this.value)">${STATUSES.map(s=>`<option ${x.status===s?"selected":""}>${s}</option>`).join("")}</select>
+<label>Closes <input type="date" value="${closeOf(r)}" onchange="S.roles['${id}'].close=this.value;save();render()"></label>
+<label>Follow-up <input type="date" value="${x.follow}" onchange="S.roles['${id}'].follow=this.value;save()"></label>
+<a class="btn" target="_blank" rel="noopener" href="${r.url}">Open posting ↗</a><a class="btn" href="resumes/${r.resume}" download>Best resume ⬇</a></div>
+<div><h4>Notes (contacts, referral, interview feedback)</h4><textarea rows="4" style="width:100%" oninput="S.roles['${id}'].notes=this.value;save()">${esc(x.notes)}</textarea></div>`;dlg.showModal()}
+function chk(id,i,on){const a=st(id).check;const j=a.indexOf(i);if(on&&j<0)a.push(i);if(!on&&j>=0)a.splice(j,1);save()}
+function setS(id,v){st(id).status=v;save();render();pipe()}
+
+function pipe(){$("pipe").innerHTML=STATUSES.map(s=>`<div class="col"><h5>${s}</h5>${ROLES.filter(r=>st(r.id).status===s).map(r=>`<div class="mini" onclick="openR('${r.id}')"><b>${esc(r.co)}</b><br>${esc(r.title.slice(0,42))}${st(r.id).follow?`<br><span class="note">follow-up ${st(r.id).follow}</span>`:""}</div>`).join("")}</div>`).join("")}
+
+function gaps(){const m={};ROLES.forEach(r=>r.gapTags.forEach(g=>(m[g]=m[g]||[]).push(r)));const a=Object.entries(m).sort((x,y)=>y[1].length-x[1].length);
+$("gaps").innerHTML=`<p class="note">Gaps that recur across your target roles — closing the top ones lifts the most scores. Only learn what's true to claim; add to the resume once you have real proof (a lab, a project, a cert).</p><table><tr><th>Gap</th><th>Roles affected</th><th>How to close it</th></tr>${a.map(([g,rs])=>`<tr><td><b>${esc(g)}</b></td><td>${rs.length}: ${rs.map(r=>esc(r.co)).join(", ")}</td><td>${esc(FIX[g]||"Search the JD wording and build a small, demonstrable example.")}</td></tr>`).join("")}</table>`}
+const FIX={"RF lab instrumentation":"If you've used spectrum analyzers/VNAs/chambers at NETGEAR, add them (true ones only). Otherwise a home-lab SDR/NanoVNA project gives honest talking points.","RF lab instrumentation (VNA, IQxel)":"Same — list actual instruments you've used; learn S-parameters and VNA basics.","SerDes / high-speed interfaces":"Study SerDes/PCIe link training, equalization and BER; Keysight/Teledyne intro courses.","Signal integrity (BER, eye, link training)":"Eye-diagram and jitter fundamentals; one-page explainer you could discuss in an interview.","Wi-Fi PHY/MAC test development":"Document a test plan you authored; write a Scapy script that exercises a specific 802.11 behavior.","Test automation frameworks":"Publish a small Python test harness (pytest + Scapy) to GitHub.","Wi-Fi PHY/MAC depth":"802.11ax/be deep-dive (OFDMA, MU-MIMO, roaming 802.11k/v/r)."};
+
+function resumes(){$("resumes").innerHTML=`<p class="note">Two reviewed-for-honesty variants. Edit freely — they're .docx. Rule of thumb: change ≤5 bullets per application and mirror the posting's wording only where it's true.</p><div class="grid">
+<div class="card"><h3>Wi-Fi / RF Validation &amp; Escalation</h3><div class="note">For Apple, Google, Meta, Marvell, Qualcomm, Broadcom, eero, Tesla</div><div class="why">Leads with Wi-Fi validation + customer escalation + chip-vendor debug. Keeps wireless as the headline.</div><div class="row"><a class="btn" href="resumes/Tobi_Ajao_Resume_WiFi_Validation.docx" download>Download .docx</a></div></div>
+<div class="card"><h3>Customer-Facing Platform Debug (MediaTek-tailored)</h3><div class="note">For MediaTek, Cisco, NVIDIA, general FAE/apps roles</div><div class="why">Reframes your work as platform bring-up, HW/FW/SW root-cause and tooling. Deliberately does <b>not</b> claim SerDes, PCIe, HBM or UCIe experience.</div><div class="row"><a class="btn" href="resumes/Tobi_Ajao_Resume_MediaTek_SystemAppEngineer.docx" download>Download .docx</a></div></div></div>
+<h3>Bullet-strengthening prompts (answer with real numbers)</h3><ul><li>Orbi 3/7 chip-vendor testing: how many defects, what severity, what launch risk avoided?</li><li>AI triage tool: how many reviews/tickets classified, accuracy vs. manual, hours saved, who uses it?</li><li>CAX30 field crisis: units debugged, cost/return-rate impact, time to fix.</li><li>Carrier acceptance: pass rate, issues found per SKU, certification timelines hit.</li></ul>
+<h3>Interview story bank (STAR)</h3><ul><li><b>CAX30/Comcast:</b> 200+ returned units → hardware flaw → verified fix.</li><li><b>CAX80 telnet exposure:</b> found a security issue across tens of thousands of units.</li><li><b>Claude triage tool:</b> from idea to production adoption.</li><li><b>Orbi 3/7 pre-launch defects:</b> working through Qualcomm/Broadcom engineers.</li></ul>`}
+resumes();
+
+function plan(){$("plan").innerHTML=`<p class="note">A sustainable cadence beats a burst. Aim for 2–4 quality applications a week rather than 20 rushed ones.</p><table>${PLAN.map(([d,t])=>`<tr><td><b>${d}</b></td><td>${esc(t)}</td></tr>`).join("")}</table>
+<h3>Search tips for your profile</h3><ul><li>Company-direct searches beat aggregators: try "Wi-Fi validation", "wireless test", "customer engineering", "field applications", "escalation" + each target company.</li><li>Also consider adjacent employers outside the 12 (Ubiquiti, Ruckus/CommScope, Arista/Juniper Mist, Aruba/HPE, Plume, Meraki, Garmin, Sonos, Roku, Intel/Wi-Fi, Synaptics) — many hire exactly your profile with less competition.</li><li>LinkedIn: set alerts on "Wi-Fi" + "validation|escalation|FAE" within 25 miles of Brentwood plus Remote.</li></ul>`}
+plan();
+
+function tools(){const w=S.w;$("tools").innerHTML=`<h3>Scoring weights</h3><p class="note">Change what matters to you (e.g., raise Location if you won't relocate). Scores update everywhere.</p>${Object.keys(w).map(k=>`<div class="slider"><span>${FACLAB[k]}</span><input type="range" min="0" max="50" value="${w[k]}" oninput="S.w['${k}']=+this.value;this.nextElementSibling.textContent=this.value;save();render()"><b>${w[k]}</b></div>`).join("")}<button onclick="S.w={...WEIGHTS0};save();tools();render()">Reset weights</button>
+<h3>Backup / sync</h3><p class="note">Progress lives in this browser. Export to move it between devices.</p><button onclick="exp()">Export progress (JSON)</button> <label class="btn" style="cursor:pointer">Import<input type="file" accept=".json" hidden onchange="imp(this.files[0])"></label> <button onclick="print()">Print / save PDF</button> <button onclick="if(confirm('Erase saved progress?')){localStorage.removeItem(KEY);location.reload()}">Reset all</button>
+<h3>Updating the data</h3><p class="note">Edit the <code>ROLES</code> array at the top of the script in index.html (or ask Claude to refresh it from the weekly report), commit, and the site updates.</p>`}
+function exp(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:"application/json"}));a.download="job-progress.json";a.click()}
+function imp(f){const r=new FileReader();r.onload=()=>{S=JSON.parse(r.result);save();location.reload()};r.readAsText(f)}
+
+loadFeed();render();show((location.hash||"#roles").slice(1)||"roles");
+</script>
+</body>
+</html>
