@@ -1,69 +1,67 @@
 {
- "checkedAt": "2026-10-27T19:14:00",
+ "checkedAt": "2026-10-28T19:20:09",
  "roles": {
   "apple-wifi-conn": {
    "state": "closed",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "page says unavailable"
   },
   "apple-wifi-sys": {
    "state": "closed",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "page says unavailable"
   },
   "eero-rf": {
    "state": "closed",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "HTTP 404"
   },
   "marvell-sqa": {
    "state": "unknown",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "fetch error"
   },
   "mtk-sae": {
    "state": "unknown",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "HTTP 307"
   },
   "google-pixel": {
    "state": "unknown",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "JS-rendered or inconclusive"
   },
   "cisco-esc": {
    "state": "closed",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "HTTP 410"
   },
   "meta-wifi": {
    "state": "closed",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "HTTP 404"
   },
   "broadcom-fae": {
    "state": "unknown",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "JS-rendered or inconclusive"
   },
   "nvidia-sysval": {
    "state": "unknown",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "JS-rendered or inconclusive"
   },
   "qcom-rf": {
    "state": "live",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "job text present"
   },
   "tesla-wireless": {
    "state": "unknown",
-   "checked": "2026-10-27T19:14:00",
+   "checked": "2026-10-28T19:20:09",
    "note": "HTTP 403"
   }
  },
  "added": [],
- "log": [
-  "apple-wifi-conn: unknown \u2192 closed (page says unavailable)"
- ]
+ "log": []
 }
