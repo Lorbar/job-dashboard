@@ -1,64 +1,64 @@
 {
- "checkedAt": "2026-11-11T21:03:47",
+ "checkedAt": "2026-11-12T21:18:50",
  "roles": {
   "apple-wifi-conn": {
    "state": "closed",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "page says unavailable"
   },
   "apple-wifi-sys": {
    "state": "closed",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "page says unavailable"
   },
   "eero-rf": {
    "state": "closed",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "HTTP 404"
   },
   "marvell-sqa": {
    "state": "unknown",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "fetch error"
   },
   "mtk-sae": {
    "state": "unknown",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "HTTP 307"
   },
   "google-pixel": {
    "state": "unknown",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "JS-rendered or inconclusive"
   },
   "cisco-esc": {
    "state": "closed",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "HTTP 410"
   },
   "meta-wifi": {
    "state": "closed",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "HTTP 404"
   },
   "broadcom-fae": {
    "state": "unknown",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "JS-rendered or inconclusive"
   },
   "nvidia-sysval": {
    "state": "unknown",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "JS-rendered or inconclusive"
   },
   "qcom-rf": {
    "state": "live",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "job text present"
   },
   "tesla-wireless": {
    "state": "unknown",
-   "checked": "2026-11-11T21:03:47",
+   "checked": "2026-11-12T21:18:50",
    "note": "HTTP 403"
   }
  },
