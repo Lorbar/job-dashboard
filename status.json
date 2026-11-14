@@ -1,69 +1,70 @@
 {
- "checkedAt": "2026-11-13T20:46:05",
+ "checkedAt": "2026-11-14T18:56:53",
  "roles": {
   "apple-wifi-conn": {
-   "state": "closed",
-   "checked": "2026-11-13T20:46:05",
-   "note": "page says unavailable"
+   "state": "unknown",
+   "checked": "2026-11-14T18:56:53",
+   "note": "fetch error"
   },
   "apple-wifi-sys": {
-   "state": "unknown",
-   "checked": "2026-11-13T20:46:05",
-   "note": "fetch error"
+   "state": "closed",
+   "checked": "2026-11-14T18:56:53",
+   "note": "page says unavailable"
   },
   "eero-rf": {
    "state": "closed",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "HTTP 404"
   },
   "marvell-sqa": {
    "state": "unknown",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "fetch error"
   },
   "mtk-sae": {
    "state": "unknown",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "HTTP 307"
   },
   "google-pixel": {
    "state": "unknown",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "JS-rendered or inconclusive"
   },
   "cisco-esc": {
    "state": "closed",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "HTTP 410"
   },
   "meta-wifi": {
    "state": "closed",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "HTTP 404"
   },
   "broadcom-fae": {
    "state": "unknown",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "JS-rendered or inconclusive"
   },
   "nvidia-sysval": {
    "state": "unknown",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "JS-rendered or inconclusive"
   },
   "qcom-rf": {
    "state": "live",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "job text present"
   },
   "tesla-wireless": {
    "state": "unknown",
-   "checked": "2026-11-13T20:46:05",
+   "checked": "2026-11-14T18:56:53",
    "note": "HTTP 403"
   }
  },
  "added": [],
  "log": [
-  "apple-wifi-sys: closed \u2192 unknown (fetch error)"
+  "apple-wifi-conn: closed \u2192 unknown (fetch error)",
+  "apple-wifi-sys: unknown \u2192 closed (page says unavailable)"
  ]
 }
