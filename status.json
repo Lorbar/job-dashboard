@@ -1,67 +1,69 @@
 {
- "checkedAt": "2026-11-18T21:42:23",
+ "checkedAt": "2026-11-19T21:58:11",
  "roles": {
   "apple-wifi-conn": {
    "state": "closed",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "page says unavailable"
   },
   "apple-wifi-sys": {
-   "state": "unknown",
-   "checked": "2026-11-18T21:42:23",
-   "note": "fetch error"
+   "state": "closed",
+   "checked": "2026-11-19T21:58:11",
+   "note": "page says unavailable"
   },
   "eero-rf": {
    "state": "closed",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "HTTP 404"
   },
   "marvell-sqa": {
    "state": "unknown",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "fetch error"
   },
   "mtk-sae": {
    "state": "unknown",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "HTTP 307"
   },
   "google-pixel": {
    "state": "unknown",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "JS-rendered or inconclusive"
   },
   "cisco-esc": {
    "state": "closed",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "HTTP 410"
   },
   "meta-wifi": {
    "state": "closed",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "HTTP 404"
   },
   "broadcom-fae": {
    "state": "unknown",
-   "checked": "2026-11-18T21:42:23",
-   "note": "HTTP 429"
+   "checked": "2026-11-19T21:58:11",
+   "note": "JS-rendered or inconclusive"
   },
   "nvidia-sysval": {
    "state": "unknown",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "JS-rendered or inconclusive"
   },
   "qcom-rf": {
    "state": "live",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "job text present"
   },
   "tesla-wireless": {
    "state": "unknown",
-   "checked": "2026-11-18T21:42:23",
+   "checked": "2026-11-19T21:58:11",
    "note": "HTTP 403"
   }
  },
  "added": [],
- "log": []
+ "log": [
+  "apple-wifi-sys: unknown \u2192 closed (page says unavailable)"
+ ]
 }
